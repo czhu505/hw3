@@ -1,4 +1,4 @@
-# hw3
+DATA 622 # hw3
 
 Assigned on September 27, 2018
 Due on October 31, 2017 11:59 PM EST
@@ -7,7 +7,7 @@ Due on October 31, 2017 11:59 PM EST
 
 Instructions:
 
-Get set up with free academic credits on both Google Cloud Platform (GCP) and Amazon Web Services (AWS). Instructions will be sent in 2 separate emails to your CUNY inbox.
+Get set up with free academic credits on both Google Cloud Platform (GCP) and Amazon Web Services (AWS). Instructions will be sent in 2 separate emails to your CUNY inbox by Oct 1st.
 
 Research the products that AWS and GCP offer for storage, computing and analytics. A few good starting points are:
   GCP product list
