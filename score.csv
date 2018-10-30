@@ -1,0 +1,7 @@
+names,model_scores
+KNN,0.7564294632
+Decision Tree,0.7990262172
+Naive Bayes,0.7709612984
+SVM,0.7957428215
+GradientBoostingRegressor,0.9194521672
+RandomForestRegressor,0.9134311188

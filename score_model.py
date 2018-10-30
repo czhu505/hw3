@@ -41,10 +41,14 @@ submission=pd.DataFrame({
     'PassengerId': test.index,
     'Survived':results
 })
-    
+
+print(submission)   
+ 
 submission.to_csv('submission.csv', index=False)
 #submission=pd.read_csv('submission.csv')
 #submission.head()
 
 #image = misc.imread("score.png")
 #print (image.shape)
+
+print("end score_model")

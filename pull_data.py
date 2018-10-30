@@ -11,7 +11,7 @@ import numpy as np
 import pickle
 from kaggle.api.kaggle_api_extended import KaggleApi
 
-download_path = "C:\\Users\\czhu5\\Desktop\\Data-622-2-ML\\HW2"
+download_path = "C:\\Users\\czhu5\\Desktop\\Data-622-2-ML\\hw3"
 
 api = KaggleApi()
 
@@ -23,6 +23,11 @@ api.competition_download_files('titanic', path=download_path)
 test=pd.read_csv('test.csv')
 train=pd.read_csv('train.csv')
 
+print("finish load for test data set")
+print(test.head())
+print("")
+print("finish load for train data set")
+print(train.head())
 
 #data clearning
 #To combine two data set for filling missing data for both train and test
@@ -133,4 +138,4 @@ test_pkl=open("test.pickle","wb")
 pickle.dump(testSet2,test_pkl)
 test_pkl.close()
 
-
+print("end data engineering")

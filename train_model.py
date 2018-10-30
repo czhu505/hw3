@@ -67,7 +67,7 @@ model_scores.append(round(roc_auc_score(y, rfpredicted),10))
 
 scoredf=pd.DataFrame(list(zip(names,model_scores)),columns=['names','model_scores'])
 scoredf.to_csv('score.csv', index=False)
-#print(scoredf)
+print(scoredf)
 #                           0         1
 #0                        KNN  0.756429
 #1              Decision Tree  0.794532
@@ -85,6 +85,8 @@ model_pkl=open("best_model.pickle","wb")
 pickle.dump(models[position],model_pkl)
 model_pkl.close()
 
+print(names[position])
+print("End train_model")
 #the final submition csv
 #RandomForestRegressor has better outcome
 
