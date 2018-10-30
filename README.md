@@ -28,11 +28,32 @@ AWS Method 1 (2 points)
 Description: Setup an instance of AWS server, install all required packages, migrate the scripts over and run them on a standalone aws server.
 Strengths: Fast deployment, minimal time required for this setup, do not have to deal with docker migration which can be a painful process
 Weaknesses: If we need to scale this in the future, we have no process, basically each machine will have to be built individually or alternative image of linux will have to be created before being deployed. Also we will need to make sure all the packages are similar across all the servers.
+-------------------------------------------------------------------------------------
+Method 1: Jupyter Notebooks run on aws: 15 steps:
+https://medium.com/@alexjsanchez/python-3-notebooks-on-aws-ec2-in-15-mostly-easy-steps-2ec5e662c6c6
+strength: 1.avoid to install docker, no docker installation issue
+          2.easily to access the modle and object using boto3 package
+          3.easy step to creat password to the acct
+weakness: 1.software version limited by anaconda build in softwear
+          2.(personally feel) lesser efficient in runing complex ML models
+
+-------------------------------------------------------------------------------------
 
 AWS Method 2 (2 points)
 Description: Migrate docker image directly to the cloud.
 Strengths: This is scalable, we can just deploy the image on 100 servers if we need to and be up and running and have a similar environment on all machines.
 Weaknesses: I personally find working directly with vms easier and to have more flexibility and not being limited to os running within docker. I understand the benefits of docker and definitely see that if the project is not supported by sys admins/engineers, docker might be a better fit, but if there is the needed support, I would go with managing images directly, creating a single image that is being deployed across all the servers and then building a system where all the package dependencies are centrally managed. Having said that, I spoke to a friend who works for a major bank and was surprised that they use docker, so I guess it comes down to saving your dev environment and being able to pass it along. So it is clear there is more for me to learn about docker in real work environment and I think docker is great for a lot of situations and simply since I need to outline the weakness I think docker limits your ability to tune the OS and is less flexible then having files outside of container.
+
+-------------------------------------------------------------------------------------
+Method 2: docker run on aws: 
+strength: 1.easily to deal with different version of software 
+          2.easily to workload from muti-users
+          3.avoid computer env problem in installing VM in local driver
+weakness: 1.many steps for the config files before actuary run the application.
+          2.not friendly user interface, not friendly for bussiness analysts
+-------------------------------------------------------------------------------------
+
+
 
 GCP Method 1 (2 points)
 Quick Note: Not sure if you are looking for 4 distinct methods or not, because to me it comes down to first deciding between GCP or AWS and then deciding between the methods, so realistically I see a choice of 2 methods once I have decided on GCP vs.AWS. So technically,
@@ -43,6 +64,16 @@ Strengths: The benefit of this is that if we are working in the environment wher
 I think this is the most Agile friendly setup as it would do 2 things, it would make our work available before it is delivered and would make accessibility to final files very easy instead of having the files ftped or scped over to other locations. I think this step is pretty important, I won’t be using it this time because of the time limitations, but in any real production environment that has 3+ servers I would definitely look into setting up some kind of shared storage.
 
 Weaknesses: The weakness of this approach is added complexity and cost. We have to pay for cloud storage, we have to spend time setting it up and maintaining it. Troubleshooting becomes a bit more complicated as now we have to deal with extra component and there might be a slight potential performance drop (this is very small chance of this, but still I think it is worth mentioning). Also the weakness of this method is that if you have just 1 server, there is very little benefit from having cloud storage attached, so this is really a better solution for a multi-server environment.
+
+-------------------------------------------------------------------------------------
+Method 1: docker run on aws: 
+strength: 1.easily to deal with different version of software 
+          2.easily to workload from muti-users
+          3.avoid computer env problem in installing VM in local driver
+weakness: 1.many steps for the config files before actuary run the application.
+          2.not friendly user interface, not friendly for bussiness analysts
+-------------------------------------------------------------------------------------
+
 
 GCP Method 2 (2 points)
 Description: Setup an instance, move the scripts over to the instance, setup Cloud based machine learning, rewrite scripts to use cloud based machine learning.
