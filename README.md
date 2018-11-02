@@ -25,12 +25,199 @@ Critical Thinking (8 points total)
 Fill out the critical thinking section by modifying this README.md file.
 If you want to illustrate using diagrams, check out draw.io, which has a nice integration with github.
 AWS Method 1 (2 points)
+Description: Setup an instance of AWS server, install all required packages, migrate the scripts over and run them on a standalone aws server.
+Strengths: Fast deployment, minimal time required for this setup, do not have to deal with docker migration which can be a painful process
+Weaknesses: If we need to scale this in the future, we have no process, basically each machine will have to be built individually or alternative image of linux will have to be created before being deployed. Also we will need to make sure all the packages are similar across all the servers.
+
+-------------------------------------------------------------------------------------
+Method 1: Jupyter Notebooks run on aws: 15 steps:
+https://medium.com/@alexjsanchez/python-3-notebooks-on-aws-ec2-in-15-mostly-easy-steps-2ec5e662c6c6
+strength: 1.avoid to install docker, no docker installation issue
+          2.easily to access the modle and object using boto3 package
+          3.easy step to creat password to the acct
+weakness: 1.software version limited by anaconda build in softwear
+          2.(personally feel) lesser efficient in runing complex ML models
+
+-------------------------------------------------------------------------------------
 
 AWS Method 2 (2 points)
+Description: Migrate docker image directly to the cloud.
+Strengths: This is scalable, we can just deploy the image on 100 servers if we need to and be up and running and have a similar environment on all machines.
+Weaknesses: I personally find working directly with vms easier and to have more flexibility and not being limited to os running within docker. I understand the benefits of docker and definitely see that if the project is not supported by sys admins/engineers, docker might be a better fit, but if there is the needed support, I would go with managing images directly, creating a single image that is being deployed across all the servers and then building a system where all the package dependencies are centrally managed. Having said that, I spoke to a friend who works for a major bank and was surprised that they use docker, so I guess it comes down to saving your dev environment and being able to pass it along. So it is clear there is more for me to learn about docker in real work environment and I think docker is great for a lot of situations and simply since I need to outline the weakness I think docker limits your ability to tune the OS and is less flexible then having files outside of container.
+
+-------------------------------------------------------------------------------------
+Method 2: docker run on aws: 
+strength: 1.easily to deal with different version of software 
+          2.easily to workload from muti-users
+          3.avoid computer env problem in installing VM in local driver
+          4.more scalerable cost
+weakness: 1.many steps for the config files before actuary run the application.
+          2.not friendly user interface, not friendly for bussiness analysts
+          
+-------------------------------------------------------------------------------------
+
+
 
 GCP Method 1 (2 points)
+Quick Note: Not sure if you are looking for 4 distinct methods or not, because to me it comes down to first deciding between GCP or AWS and then deciding between the methods, so realistically I see a choice of 2 methods once I have decided on GCP vs.AWS. So technically,
+I see the same 2 methods for GCP as for AWS, but I will go with different methods, since I think this is what you are looking for so realistically we can use any of the 4 methods for either AWS or GCP.
+
+Description: Setup a GCP server, setup up cloud storage and have the GCP instance connect to the cloud storage as NAS. Upload the scripts ( or docker image) into the instance, Save the generated pickle and csv files onto the cloud storage.
+Strengths: The benefit of this is that if we are working in the environment where we share our data with other teams or servers, it would be much easier to have a central file storage that would house the project files and would make it available to other processes.
+I think this is the most Agile friendly setup as it would do 2 things, it would make our work available before it is delivered and would make accessibility to final files very easy instead of having the files ftped or scped over to other locations. I think this step is pretty important, I won’t be using it this time because of the time limitations, but in any real production environment that has 3+ servers I would definitely look into setting up some kind of shared storage.
+
+Weaknesses: The weakness of this approach is added complexity and cost. We have to pay for cloud storage, we have to spend time setting it up and maintaining it. Troubleshooting becomes a bit more complicated as now we have to deal with extra component and there might be a slight potential performance drop (this is very small chance of this, but still I think it is worth mentioning). Also the weakness of this method is that if you have just 1 server, there is very little benefit from having cloud storage attached, so this is really a better solution for a multi-server environment.
+
+-------------------------------------------------------------------------------------
+Method 1: jupyter run on GCP: 
+strength: 1.Interface is much more friendly
+          2.more feature avaliable
+          3.very flexible to choose CPU ad harddrive
+          4.esier to work with api 
+weakness: 1.runing cost is very high.
+https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52
+
+
+-------------------------------------------------------------------------------------
+
 
 GCP Method 2 (2 points)
+Description: Setup an instance, move the scripts over to the instance, setup Cloud based machine learning, rewrite scripts to use cloud based machine learning.
+Strengths: The benefit of this approach is that you can have unlimited power behind your machine learning if you are dealing with large datasets. From what I can see there are some nice features also available that make process somewhat simpler when everything is setup.
+Weaknesses: The downside is that you are limited to what the cloud based machine learning can do for you. There is limited number of methods available so the capabilities are not as flexible as you would have with python based machine learning. Also you are really moving towards one particular platform, in other words if you setup cloud storage and then cloud based machine learning it will be much harder for you to move somewhere else if you decide so in the future or move everything locally (for whatever reason). So Staying with python based machine learning could with or without docker, gives you flexibility of migrating where you want fast. In my opining the last is a considerable downside and needs to be considered very carefully before fully committing to the ecosystem.
+
+
+-------------------------------------------------------------------------------------
+Method 2: VM run on GCP: 
+strength: 1.Interface is much more friendly
+          2.more feature avaliable
+          3.fastest GPU performance to deal with large data set 
+weakness: 1.runing cost is very high.
+          2.new lauage like go needs people to get use to it
+          
+https://www.zdnet.com/article/public-cloud-computing-vendors-a-look-at-strengths-weaknesses-big-picture/
+      
+-------------------------------------------------------------------------------------
+
+
 
 Applied (7 points total)
 Choose one of the methods described above, and implement it using your work from homework 2. Submit screenshots in the screenshot folder on this repo to document the completion of your process.
+
+------------------------------------------------------------------------------------
+I was successful run my .py files in aws ubuntu. 
+
+
+Also I tried to run docker image in aws ubuntu. However, the docker had an error that I was not able to detect and got it fixed since docker has no respond for its failure in runing the image. 
+
+
+The following I recored as much as possible in running my files in aws ubuntu. 
+
+====================================================================================
+
+Part I:
+
+Method: run file on AWS Ubuntu
+
+
+The following image showed I was successfully pull and run my files: pull_data.py,  train_model.py and score_model.py. 
+I built the docker image which contained all the files from HW2.  Form the image data622/hw3, I run all these three files without problem. The run time was fast. 
+
+
+pull_data.py was able to access to Kaggle api and download the titanic dataset automatically. I put all the data engineering work in this file, and used pickle to save all cleaned data sets, x.pickle (train data), y.pickle (train predictive data), and test.pickle (test data). I printed the train.head() and test.head() after read in data set. 
+
+
+train_model.py was able to reopen all the pickles and run all the data in different ML models. At the end, I stored the highest ROC score model using pickle, best_model.pickle. I printed the ROC outcome for each ML model.
+
+
+Score_model.py  was able to reopen all the pickles and run prediction for the test data using best model. I printed the prediction outcome at the end. 
+
+
+
+
+
+===================================================================================
+
+Part II:
+
+Method 2: Run docker image on aws ubuntu. 
+
+Step1 : installed docker container in ubuntu using method on docker doc. 
+https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
+
+
+after this step, “Hello-world” is successful run on from ubuntu. 
+
+Step2: I set up a Dockfile to get ubuntu docker to install python 3.6. 
+
+
+Difficulty was found while installing python, since there is a limitation in installing python packages using sudo, where sudo level is under ubuntu level, not docker container.
+
+
+I found the way to switch to docker root to install python in following commend:
+•	sudo usermod -a -G docker $USER
+https://techoverflow.net/2017/03/01/solving-docker-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/
+now I am able to run the commend:   docker run hello-world
+
+
+Step3: pip3 install Kaggle:
+Pip3 install kaggle --upgrade
+
+Step4: install all the python package listed in requirements.txt
+
+
+Difficulty 1: python installing version is default 2.7 version.  To install python3, need to pip install python3. For later installation for some package, I shall use “pip3”  to install instead of pip. 
+
+
+Difficulty 2: special error pip install pyodbc failing: error: command 'x86_64-linux-gnu-gcc' failed with exit status:
+
+apt-get install python3-dev
+apt-get install unixodbc-dev
+
+restart prompt and rerun 
+https://github.com/mkleehammer/pyodbc/issues/276
+
+
+Difficulty 3: rebuilt docker image again and again after each time correction for requirements.txt, and all other files. 
+
+
+Difficutly4: It takes time to rebuild docker images. I had hard time to record all the steps since the internet was not stable. Yet, the terminal saved download at the time internet stopped.
+
+
+Step5: docker image
+
+
+followed docker docs to build docker image:
+
+
+https://docs.docker.com/engine/reference/builder/#usage
+
+
+pulled docker image:
+
+https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html
+
+ 
+
+Step6: run docker image on aws ubuntu
+
+
+The following docker image was successfully built on aws ubuntu which accessed the my data files from github account. 	
+
+
+Docker run image on aws ubuntu has an error that I was not able to fix. I don’t understand that it was able to run x.pickle  and y.pickle which are clearned training pandas data frame, however, it failed to run test.pickle which is cleaned test pandas data frame. 
+ 
+
+
+---------------------------------------------------------------------------
+The following linked is for future reference.
+
+Learning how to set up dockerfile is impoartant to make efficient creat docker image. 
+
+Dockerfile setup:
+https://medium.freecodecamp.org/docker-entrypoint-cmd-dockerfile-best-practices-abc591c30e21
+https://www.howtoforge.com/tutorial/how-to-create-docker-images-with-dockerfile/
+
+
+Video for run docker image:
+https://docs.docker.com/get-started/part2/#recap-and-cheat-sheet-optional
