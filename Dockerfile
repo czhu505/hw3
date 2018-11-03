@@ -9,6 +9,11 @@ RUN apt-get update && apt-get install -y wget ca-certificates \
 RUN pip3 install --upgrade pip
 RUN pip3 install numpy pandas sklearn matplotlib seaborn jupyter pyyaml h5py
 
+#copy requirements.txt file into image
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+
 #copy py files into image
 COPY *.py ./
 
