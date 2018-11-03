@@ -14,6 +14,6 @@ copy kaggle.json /root/.kaggle
 
 WORKDIR /usr/src/app
 
-CMD [ "pull_data.py", "train_model.py","score_model.py"  ]
+#CMD [ "pull_data.py", "train_model.py","score_model.py"  ]
 
 
