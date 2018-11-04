@@ -105,26 +105,31 @@ Applied (7 points total)
 Choose one of the methods described above, and implement it using your work from homework 2. Submit screenshots in the screenshot folder on this repo to document the completion of your process.
 
 ------------------------------------------------------------------------------------
-I was successful run my .py files in aws ubuntu. 
-
-
-Also I tried to run docker image in aws ubuntu. However, the docker had an error that I was not able to detect and got it fixed since docker has no respond for its failure in runing the image. 
-
+I sucessfully run docker image in aws ubuntu. 
 
 The following I recored as much as possible in running my files in aws ubuntu. 
 
 ====================================================================================
 
-Part I:
+Method: Run docker image on aws ubuntu. 
 
-Method: run file on AWS Ubuntu
+Step1: Created unbuntu in aws EC2 instant.
 
+Step2: Used putty to log in unbuntu terminal.
 
-The following image showed I was successfully pull and run my files: pull_data.py,  train_model.py and score_model.py. 
-I built the docker image which contained all the files from HW2.  Form the image data622/hw3, I run all these three files without problem. The run time was fast. 
+Step3: Installed git and docker under the root ip address
 
+Step4: Use git clone commned to load hw3 repository from github account
 
-pull_data.py was able to access to Kaggle api and download the titanic dataset automatically. I put all the data engineering work in this file, and used pickle to save all cleaned data sets, x.pickle (train data), y.pickle (train predictive data), and test.pickle (test data). I printed the train.head() and test.head() after read in data set. 
+Step5: built docer image, in which docker was able to follow Dockerfile to install all requirements package and copy kaggle api key to local directory.
+
+Step6: In docker images container, run py files. 
+
+Note:
+I was successfully pull and run my files: pull_data.py,  train_model.py and score_model.py. 
+Form the image data622/hw3, I run all these three files without problem. The run time was fast. 
+
+pull_data.py has changed the path from hw2, since it will requested api in aws ubuntu docker image location. I removed the path in puu_data.py, so that it was able to access to Kaggle api and download the titanic dataset automatically. I put all the data engineering work in this file, and used pickle to save all cleaned data sets, x.pickle (train data), y.pickle (train predictive data), and test.pickle (test data). I printed the train.head() and test.head() after read in data set. 
 
 
 train_model.py was able to reopen all the pickles and run all the data in different ML models. At the end, I stored the highest ROC score model using pickle, best_model.pickle. I printed the ROC outcome for each ML model.
@@ -133,91 +138,3 @@ train_model.py was able to reopen all the pickles and run all the data in differ
 Score_model.py  was able to reopen all the pickles and run prediction for the test data using best model. I printed the prediction outcome at the end. 
 
 
-
-
-
-===================================================================================
-
-Part II:
-
-Method 2: Run docker image on aws ubuntu. 
-
-Step1 : installed docker container in ubuntu using method on docker doc. 
-https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
-
-
-after this step, “Hello-world” is successful run on from ubuntu. 
-
-Step2: I set up a Dockfile to get ubuntu docker to install python 3.6. 
-
-
-Difficulty was found while installing python, since there is a limitation in installing python packages using sudo, where sudo level is under ubuntu level, not docker container.
-
-
-I found the way to switch to docker root to install python in following commend:
-•	sudo usermod -a -G docker $USER
-https://techoverflow.net/2017/03/01/solving-docker-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket/
-now I am able to run the commend:   docker run hello-world
-
-
-Step3: pip3 install Kaggle:
-Pip3 install kaggle --upgrade
-
-Step4: install all the python package listed in requirements.txt
-
-
-Difficulty 1: python installing version is default 2.7 version.  To install python3, need to pip install python3. For later installation for some package, I shall use “pip3”  to install instead of pip. 
-
-
-Difficulty 2: special error pip install pyodbc failing: error: command 'x86_64-linux-gnu-gcc' failed with exit status:
-
-apt-get install python3-dev
-apt-get install unixodbc-dev
-
-restart prompt and rerun 
-https://github.com/mkleehammer/pyodbc/issues/276
-
-
-Difficulty 3: rebuilt docker image again and again after each time correction for requirements.txt, and all other files. 
-
-
-Difficutly4: It takes time to rebuild docker images. I had hard time to record all the steps since the internet was not stable. Yet, the terminal saved download at the time internet stopped.
-
-
-Step5: docker image
-
-
-followed docker docs to build docker image:
-
-
-https://docs.docker.com/engine/reference/builder/#usage
-
-
-pulled docker image:
-
-https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html
-
- 
-
-Step6: run docker image on aws ubuntu
-
-
-The following docker image was successfully built on aws ubuntu which accessed the my data files from github account. 	
-
-
-Docker run image on aws ubuntu has an error that I was not able to fix. I don’t understand that it was able to run x.pickle  and y.pickle which are clearned training pandas data frame, however, it failed to run test.pickle which is cleaned test pandas data frame. 
- 
-
-
----------------------------------------------------------------------------
-The following linked is for future reference.
-
-Learning how to set up dockerfile is impoartant to make efficient creat docker image. 
-
-Dockerfile setup:
-https://medium.freecodecamp.org/docker-entrypoint-cmd-dockerfile-best-practices-abc591c30e21
-https://www.howtoforge.com/tutorial/how-to-create-docker-images-with-dockerfile/
-
-
-Video for run docker image:
-https://docs.docker.com/get-started/part2/#recap-and-cheat-sheet-optional
