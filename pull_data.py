@@ -18,7 +18,7 @@ api = KaggleApi()
 api.authenticate()
 
 #download the kaggle data set to local folder
-api.competition_download_files('titanic', path=download_path)
+api.competition_download_files('titanic')
 
 test=pd.read_csv('test.csv')
 train=pd.read_csv('train.csv')
